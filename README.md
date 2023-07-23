@@ -34,6 +34,12 @@
 - docker rm feedback-app **(manually remove a container)**
 - docker volume ls **(lists volumes)**
 
+### Network
+
+- docker network create {name} **(creates a new docker network)**
+- docker network ls **(lists down all the networks)**
+- docker run -d --name mongodb --network favorites-net mongo **(created container is a part of the specified network)**
+
 ## Flags
 
 - **-a** -> Attach mode
@@ -45,3 +51,9 @@
 - **--env** -> Listing env variables
 - **--env-file** -> Adding env file
 - **--build-arg** -> Add values to arguments
+
+## Notes
+
+- Use "host.docker.internal" to connect your container with anything running on your local machine
+- For communicating with another container, we can use the IP address of the other container which we can get by running docker inspect {container_name} [Obviously this is not an efficient way of creating a network as we need to create an image each time we change the IP address in the code. We can use --network flag, which is a much better alternative]
+- If 2 or more containers are of same network, then we can simply use the name of the container to communicate between them instead of using its IP
