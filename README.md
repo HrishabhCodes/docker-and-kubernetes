@@ -40,6 +40,11 @@
 - docker network ls **(lists down all the networks)**
 - docker run -d --name mongodb --network favorites-net mongo **(created container is a part of the specified network)**
 
+### Compose
+
+- docker compose up
+- docker compose down
+
 ## Flags
 
 - **-a** -> Attach mode

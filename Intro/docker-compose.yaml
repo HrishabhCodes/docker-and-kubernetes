@@ -1,0 +1,49 @@
+# Notes: 1. We don't need to add --rm and -d as they are considered by default
+#        2. A network is automatically created, we don't need to create a network on our own
+
+version: "3.8"
+services:
+  backend:
+    # here image is not provided but we are providing the steps
+    build: ./backend
+    image: "goals-node"
+    ports:
+      - "80:80"
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     some-arg: 1
+    env_file:
+      - ./env/mongo.env
+    depends_on:
+      - mongodb
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db:ro
+    env_file:
+      - ./env/mongo.env
+    container_name: mongodb
+    # environment:
+    #   MONGO_ROOT_USERNAME: max
+    #   MONGO_ROOT_PASSWORD: secret
+
+volumes:
+  data:
+  logs:
+#  we don't need to add bind mounts here
