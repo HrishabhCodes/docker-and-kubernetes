@@ -2,6 +2,7 @@
 
 ## Commands
 
+- docker exec -it <container_name> bash **(get into the container)**
 - docker login **(logs in your docker hub account)**
 - docker logout **(logs out from your docker hub account)**
 
